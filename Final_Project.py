@@ -7,6 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sbn
 
 '''Data Loading'''
 region_data = pd.ExcelFile("University of Wyoming Risk Reports.xlsx")
@@ -18,10 +19,10 @@ region_corr= region.corr()
 columns_heading = region_corr.columns.tolist()
 
 '''Heat Map of correlation Matrix'''
-# plt.figure(figsize=(25,25))
-# cmapbhelix = sbn.cubehelix_palette(16,as_cmap=True)
-# sbn.heatmap(region_corr, vmax=1, square=True,annot=True,cmap=cmapbhelix)
-# plt.title('Feature Correlation')
+plt.figure(figsize=(25,25))
+cmapbhelix = sbn.cubehelix_palette(16,as_cmap=True)
+sbn.heatmap(region_corr, vmax=1, square=True,annot=True,cmap=cmapbhelix)
+plt.title('Feature Correlation')
 
 '''Dropping Highly Correlated columns'''
 drop_columns=[]
@@ -36,9 +37,9 @@ region= region.drop(drop_columns, axis=1)
 no_of_clusters = 5
 
 '''Mean Shift Clustering'''
-# X = StandardScaler().fit_transform(region)
-# bandwidth = cluster.estimate_bandwidth(X, quantile=0.3)
-# models = cluster.MeanShift(bandwidth=bandwidth, bin_seeding=True)
+X = StandardScaler().fit_transform(region)
+bandwidth = cluster.estimate_bandwidth(X, quantile=0.3)
+models = cluster.MeanShift(bandwidth=bandwidth, bin_seeding=True)
 
 '''K-Means Clustering'''
 models= KMeans(n_clusters=no_of_clusters)
