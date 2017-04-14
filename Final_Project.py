@@ -1,3 +1,4 @@
+from pandas.tools.plotting import scatter_matrix
 from sklearn import cluster
 from sklearn.cluster import KMeans
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -37,9 +38,12 @@ region= region.drop(drop_columns, axis=1)
 no_of_clusters = 5
 
 '''Mean Shift Clustering'''
-X = StandardScaler().fit_transform(region)
-bandwidth = cluster.estimate_bandwidth(X, quantile=0.3)
-models = cluster.MeanShift(bandwidth=bandwidth, bin_seeding=True)
+# X = StandardScaler().fit_transform(region)
+# bandwidth = cluster.estimate_bandwidth(X, quantile=0.3)
+# models = cluster.MeanShift(bandwidth=bandwidth, bin_seeding=True)
+
+'''ScatterPlot Matrix for important features'''
+scatter_matrix(region, figsize=(50,50))
 
 '''K-Means Clustering'''
 models= KMeans(n_clusters=no_of_clusters)
